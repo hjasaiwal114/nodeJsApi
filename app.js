@@ -1,7 +1,15 @@
 import express from "express";
-import mangoose from "mongoose";
+import mongoose from "mongoose";
+
 
 const app =  express();
+
+const router = express.Router();
+
+router.pos
+
+// Using Middlewares
+app.use(express.json());
 
 
 mongoose
@@ -25,10 +33,31 @@ app.get("/", (req, res)=> {
 }); 
 
 
-app.get("/users/all", (req, res) => {
+app.post("/users/all", async (req, res) => {
+
+    const {name,email,password} = req.body;
+
+  await User.create({
+    name: "Abhi",
+    email: "abhishek@gmail.com",
+    password: "djkand",
+  })
+
+    res.status(201).cookie("tempi", "lol").json({
+        success: true,
+        message: "Registered Successfully",
+    });
+});
+
+
+
+app.get("/userid/:id", async (req, res)=> {
+    const { id } = req.query;
+    // const user =  await User.findById(id);
+    console.log(req.params);
     res.json({
         success: true,
-        users: [],
+        user: {},
     });
 });
 
